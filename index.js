@@ -1,4 +1,10 @@
 const express = require('express')
+const client = require('./db')
+
+client.connect((err) => {
+    if (err) throw err
+    console.log('Database connected!')
+})
 
 const app = express()
 
