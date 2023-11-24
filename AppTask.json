@@ -1,0 +1,99 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:eu-north-1:025724771800:task-definition/AppTask:2",
+    "containerDefinitions": [
+        {
+            "name": "AppContainer",
+            "image": "025724771800.dkr.ecr.eu-north-1.amazonaws.com/trial:latest",
+            "cpu": 0,
+            "memory": 920,
+            "portMappings": [
+                {
+                    "name": "appcontainer-5000-tcp",
+                    "containerPort": 5000,
+                    "hostPort": 6565,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [
+                {
+                    "value": "arn:aws:s3:::eliasonic-bucket/.env",
+                    "type": "s3"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "secrets": [
+                {
+                    "name": "POSTGRES_HOST",
+                    "valueFrom": "arn:aws:ssm:eu-north-1:025724771800:parameter/pm_dbhost"
+                },
+                {
+                    "name": "POSTGRES_PORT",
+                    "valueFrom": "arn:aws:ssm:eu-north-1:025724771800:parameter/pm_dbport"
+                }
+            ],
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/AppTask",
+                    "awslogs-region": "eu-north-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            }
+        }
+    ],
+    "family": "AppTask",
+    "taskRoleArn": "arn:aws:iam::025724771800:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::025724771800:role/ecsTaskExecutionRole",
+    "revision": 2,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "ecs.capability.env-files.s3"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "ecs.capability.secrets.ssm.environment-variables"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2"
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "registeredAt": "2023-11-23T05:39:00.718Z",
+    "registeredBy": "arn:aws:iam::025724771800:root",
+    "tags": []
+}
